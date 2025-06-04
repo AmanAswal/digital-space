@@ -2,7 +2,7 @@ import { getPaginatedPosts } from '@/lib/posts'
 import PostPreview from '@/components/PostPreview'
 import Pagination from '@/components/Pagination'
 
-export default function WritingsPage({
+export default async function WritingsPage({
   searchParams,
 }: {
   searchParams?: { page?: string }
