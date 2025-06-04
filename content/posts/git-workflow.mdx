@@ -1,0 +1,125 @@
+---
+title: 'Git Workflow Best Practices'
+date: '2024-03-26'
+description: 'A guide to professional Git workflows and collaboration techniques'
+---
+
+# Git Workflow Best Practices
+
+A solid Git workflow is essential for team collaboration and maintaining clean project history. Here's a comprehensive guide to Git best practices.
+
+## Branch Naming Conventions
+
+Follow a consistent pattern for branch names:
+```bash
+feature/add-user-authentication
+bugfix/fix-login-validation
+hotfix/security-vulnerability
+release/v1.2.0
+```
+
+## Commit Messages
+
+Write meaningful commit messages:
+```bash
+# Bad ❌
+git commit -m "fixed stuff"
+
+# Good ✅
+git commit -m "fix: resolve user authentication timeout issue
+
+- Increase token expiration to 24 hours
+- Add refresh token mechanism
+- Update tests"
+```
+
+## Git Flow Model
+
+A typical Git flow includes these branches:
+
+```plaintext
+main
+  └── develop
+       ├── feature/user-auth
+       ├── feature/payment-integration
+       └── bugfix/validation-error
+```
+
+## Common Workflows
+
+### Starting a New Feature
+```bash
+# Update main branch
+git checkout main
+git pull origin main
+
+# Create feature branch
+git checkout -b feature/new-feature
+```
+
+### Keeping Feature Branch Updated
+```bash
+# While on feature branch
+git fetch origin
+git rebase origin/main
+```
+
+### Preparing for Pull Request
+```bash
+# Squash commits
+git rebase -i HEAD~3  # Squash last 3 commits
+
+# Push to remote
+git push origin feature/new-feature
+```
+
+## Advanced Git Commands
+
+### Stashing Changes
+```bash
+# Save work in progress
+git stash save "work in progress on auth feature"
+
+# List stashes
+git stash list
+
+# Apply specific stash
+git stash apply stash@{0}
+```
+
+### Interactive Rebase
+```bash
+# Rewrite last 3 commits
+git rebase -i HEAD~3
+
+# Commands in rebase:
+# p, pick = use commit
+# r, reword = use commit but edit message
+# s, squash = use commit but meld into previous commit
+# f, fixup = like squash but discard commit message
+```
+
+## Best Practices
+
+1. Never rewrite public history
+2. Keep commits atomic and focused
+3. Use meaningful branch names
+4. Write descriptive commit messages
+5. Regular rebasing instead of merging
+6. Delete branches after merging
+
+## Git Aliases for Productivity
+
+Add these to your `.gitconfig`:
+```bash
+[alias]
+  st = status
+  co = checkout
+  br = branch
+  ci = commit
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+```
+
+Remember: A good Git workflow makes collaboration smoother and helps maintain a clean, meaningful project history. 

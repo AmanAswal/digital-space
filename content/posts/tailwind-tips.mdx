@@ -1,0 +1,159 @@
+---
+title: 'Advanced Tailwind CSS Tips and Tricks'
+date: '2024-03-27'
+description: 'Level up your Tailwind CSS skills with these advanced techniques and best practices'
+---
+
+# Advanced Tailwind CSS Tips and Tricks
+
+Tailwind CSS is a powerful utility-first framework. Here are some advanced techniques to make the most of it.
+
+## Custom Component Patterns
+
+### Button Component
+```jsx
+const Button = ({ variant = 'primary', size = 'md', children }) => {
+  const variants = {
+    primary: 'bg-blue-500 hover:bg-blue-600 text-white',
+    secondary: 'bg-gray-500 hover:bg-gray-600 text-white',
+    outline: 'border-2 border-blue-500 text-blue-500 hover:bg-blue-50'
+  };
+
+  const sizes = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-base',
+    lg: 'px-6 py-3 text-lg'
+  };
+
+  return (
+    <button className={`
+      ${variants[variant]}
+      ${sizes[size]}
+      rounded-lg transition-colors duration-200
+      focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+      disabled:opacity-50 disabled:cursor-not-allowed
+    `}>
+      {children}
+    </button>
+  );
+};
+```
+
+## Custom Utilities
+
+### tailwind.config.js
+```javascript
+module.exports = {
+  theme: {
+    extend: {
+      spacing: {
+        '128': '32rem',
+        '144': '36rem',
+      },
+      colors: {
+        brand: {
+          light: '#3FBAEB',
+          DEFAULT: '#0EA5E9',
+          dark: '#0369A1',
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+    },
+  },
+};
+```
+
+## Responsive Design Patterns
+
+### Modern Card Layout
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="group rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div class="relative">
+      <img class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300" src="image.jpg" alt="Card image" />
+      <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+    </div>
+    <div class="p-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-800">Card Title</h3>
+      <p class="text-gray-600">Card description goes here...</p>
+    </div>
+  </div>
+  <!-- More cards... -->
+</div>
+```
+
+## Dark Mode Support
+
+### Dynamic Dark Mode
+```html
+<div class="
+  bg-white dark:bg-gray-800
+  text-gray-900 dark:text-gray-100
+  border border-gray-200 dark:border-gray-700
+  shadow-lg dark:shadow-gray-900/30
+">
+  <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+    Dark Mode Ready
+  </h2>
+  <p class="text-gray-600 dark:text-gray-300">
+    This component adapts to system preferences
+  </p>
+</div>
+```
+
+## Performance Tips
+
+1. Use JIT mode for faster development
+2. Purge unused styles in production
+3. Extract common patterns into components
+4. Use @apply for complex, reusable styles
+5. Leverage Tailwind's built-in variants
+
+## Best Practices
+
+### Using @apply Wisely
+```css
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-500 text-white rounded-lg
+    hover:bg-blue-600 focus:ring-2 focus:ring-blue-500
+    focus:ring-offset-2 transition-colors duration-200;
+  }
+}
+```
+
+### Organizing Classes
+```html
+<button class="
+  /* Layout */
+  inline-flex items-center justify-center
+  /* Typography */
+  font-semibold text-sm
+  /* Spacing */
+  px-4 py-2
+  /* Colors */
+  bg-blue-500 text-white
+  /* Effects */
+  hover:bg-blue-600
+  focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+  /* Transitions */
+  transition-all duration-200
+">
+  Click me
+</button>
+```
+
+Remember: Tailwind is most powerful when you embrace its utility-first nature while maintaining clean, organized code through smart component abstractions. 
