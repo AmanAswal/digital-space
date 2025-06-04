@@ -9,12 +9,12 @@ export const dynamic = 'force-static'
 export const revalidate = 3600 // revalidate every hour
 
 interface PageProps {
-  searchParams?: { page?: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export default async function WritingsPage({ searchParams }: PageProps) {
-  const param = await searchParams;
-  const currentPage = Number(param?.page) || 1
+  const pageParam = searchParams?.page
+  const currentPage = Number(pageParam) || 1
   const { posts, totalPages } = await getPaginatedPosts(currentPage)
 
   return (

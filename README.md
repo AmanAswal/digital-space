@@ -1,24 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digital Space - Personal Website
+
+A modern, performant personal website built with Next.js 14, featuring a blog system, portfolio, and more.
+
+## Features
+
+- 🚀 Built with Next.js 14 App Router
+- 💨 Styled with Tailwind CSS
+- 📝 MDX Blog with pagination
+- 🎨 Framer Motion animations
+- 🌙 Dark mode optimized
+- 📱 Fully responsive design
+- ⚡ Optimized for performance
+
+## Tech Stack
+
+- **Framework:** Next.js 14
+- **Styling:** Tailwind CSS
+- **Content:** MDX
+- **Animations:** Framer Motion
+- **Fonts:** Geist Sans & Geist Mono
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/yourusername/digital-space.git
+cd digital-space
+```
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── content/          # MDX blog posts
+├── public/           # Static assets
+└── src/
+    ├── app/         # Next.js app router pages
+    ├── components/  # React components
+    └── lib/         # Utility functions
+```
+
+## License
+
+MIT License
+
+## Author
+
+Aman Aswal
 
 ## Learn More
 
