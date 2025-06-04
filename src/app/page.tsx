@@ -1,44 +1,35 @@
-'use client';
+import dynamic from "next/dynamic";
 
-import Link from "next/link";
-import Skills from "@/components/Skills";
-import { motion } from "framer-motion";
+// Load Skills component dynamically
+const Skills = dynamic(() => import("@/components/Skills"), {
+	ssr: true,
+	loading: () => (
+		<div className="py-12 animate-pulse">
+			<div className="h-8 w-48 bg-neutral-800 rounded mb-8"></div>
+			<div className="space-y-4">
+				<div className="h-24 bg-neutral-800 rounded"></div>
+				<div className="h-24 bg-neutral-800 rounded"></div>
+			</div>
+		</div>
+	),
+});
 
-const fadeIn = {
-	initial: { opacity: 0, y: 20 },
-	animate: { opacity: 1, y: 0 },
-	transition: { duration: 0.5 }
-};
-
-const stagger = {
-	animate: {
-		transition: {
-			staggerChildren: 0.1
-		}
-	}
-};
+// Separate client component for animations
+const AnimatedLink = dynamic(() => import("@/components/AnimatedLink"), {
+	ssr: true,
+});
 
 export default function Home() {
 	return (
 		<div className="font-[family-name:var(--font-geist-sans)]">
-			<motion.main
-				initial="initial"
-				animate="animate"
-				variants={stagger}
-				key="home"
-			>
-				<motion.div 
-					className="flex items-center justify-between mb-10"
-					variants={fadeIn}
-				>
+			<div>
+				<div className="flex items-center justify-between mb-10">
 					<h1 className="text-4xl font-extralight">Present</h1>
-					<motion.a
+					<a
 						href="https://drive.google.com/file/d/13J9epYZ-rZJ55sgDQTtms7o1fVHhiGjp/view?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex items-center space-x-2 px-4 py-2 border border-neutral-700 rounded-lg text-neutral-200 hover:bg-neutral-800/50 transition-colors"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
 					>
 						<span>View Resume</span>
 						<svg
@@ -58,80 +49,41 @@ export default function Home() {
 								clipRule="evenodd"
 							/>
 						</svg>
-					</motion.a>
-				</motion.div>
-				<motion.p 
-					className="text-lg font-light text-zinc-400"
-					variants={fadeIn}
-				>
+					</a>
+				</div>
+				<p className="text-lg font-light text-zinc-400">
 					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta
 					qui voluptates optio aliquam nihil, quia cum veritatis,
 					voluptatibus autem beatae harum itaque doloribus. Quam autem.
-				</motion.p>
-				<motion.p 
-					className="text-lg font-light text-zinc-400"
-					variants={fadeIn}
-				>
+				</p>
+				<p className="text-lg font-light text-zinc-400">
 					you can find me on{" "}
-					<motion.span
-						whileHover={{ scale: 1.05 }}
-						style={{ display: 'inline-block' }}
-					>
-						<Link
-							href={"https://www.linkedin.com/in/amanaswal/"}
-							target="_blank"
-							className="underline text-neutral-200 hover:text-blue-300"
-						>
-							Linkedin
-						</Link>
-					</motion.span>
+					<AnimatedLink
+						href="https://www.linkedin.com/in/amanaswal/"
+						label="Linkedin"
+						className="text-neutral-200 hover:text-blue-300"
+					/>
 					,{" "}
-					<motion.span
-						whileHover={{ scale: 1.05 }}
-						style={{ display: 'inline-block' }}
-					>
-						<Link
-							href={"https://github.com/amanaswal"}
-							target="_blank"
-							className="underline text-neutral-200 hover:text-yellow-200"
-						>
-							Github
-						</Link>
-					</motion.span>
+					<AnimatedLink
+						href="https://github.com/amanaswal"
+						label="Github"
+						className="text-neutral-200 hover:text-yellow-200"
+					/>
 					,{" "}
-					<motion.span
-						whileHover={{ scale: 1.05 }}
-						style={{ display: 'inline-block' }}
-					>
-						<Link
-							href={"https://www.instagram.com/amanaswa1/"}
-							target="_blank"
-							className="underline text-neutral-200 hover:text-pink-300"
-						>
-							Instagram
-						</Link>
-					</motion.span>{" "}
+					<AnimatedLink
+						href="https://www.instagram.com/amanaswa1/"
+						label="Instagram"
+						className="text-neutral-200 hover:text-pink-300"
+					/>{" "}
 					or{" "}
-					<motion.span
-						whileHover={{ scale: 1.05 }}
-						style={{ display: 'inline-block' }}
-					>
-						<Link
-							href={
-								"https://www.youtube.com/channel/UCrcW8omN6QT9gNmzc-LLQRw"
-							}
-							target="_blank"
-							className="underline text-neutral-200 hover:text-red-400"
-						>
-							Youtube
-						</Link>
-					</motion.span>
-				</motion.p>
-			</motion.main>
+					<AnimatedLink
+						href="https://www.youtube.com/channel/UCrcW8omN6QT9gNmzc-LLQRw"
+						label="Youtube"
+						className="text-neutral-200 hover:text-red-400"
+					/>
+				</p>
+			</div>
 			<Skills />
-			{/* <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-				<h1>footer</h1>
-			</footer> */}
 		</div>
 	);
 }

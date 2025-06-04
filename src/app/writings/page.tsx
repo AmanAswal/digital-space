@@ -1,14 +1,21 @@
+// app/writings/page.tsx
+
 import { getPaginatedPosts } from '@/lib/posts'
 import PostPreview from '@/components/PostPreview'
 import Pagination from '@/components/Pagination'
 
-export default async function WritingsPage({
-  searchParams,
-}: {
+// Add route segment config
+export const dynamic = 'force-static'
+export const revalidate = 3600 // revalidate every hour
+
+interface PageProps {
   searchParams?: { page?: string }
-}) {
-  const currentPage = Number(searchParams?.page) || 1
-  const { posts, totalPages, currentPage: page } = getPaginatedPosts(currentPage)
+}
+
+export default async function WritingsPage({ searchParams }: PageProps) {
+  const param = await searchParams;
+  const currentPage = Number(param?.page) || 1
+  const { posts, totalPages } = await getPaginatedPosts(currentPage)
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -19,7 +26,7 @@ export default async function WritingsPage({
         ))}
       </div>
       {totalPages > 1 && (
-        <Pagination totalPages={totalPages} currentPage={page} />
+        <Pagination totalPages={totalPages} currentPage={currentPage} />
       )}
     </div>
   )
